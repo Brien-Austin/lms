@@ -4,8 +4,8 @@ import Home from "./pages/Home";
 import OnBoard from "./pages/OnBoard";
 import Register from "./pages/Register";
 import UI from "./pages/UI";
-import SIgnUp from "./pages/SIgnUp";
-import SignUp from "./pages/SIgnUp";
+
+import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 
 const App = () => {
