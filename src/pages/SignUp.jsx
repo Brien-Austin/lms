@@ -41,9 +41,9 @@ const SignUp = () => {
   const handleSignUp = async () => {
     if (formData.acceptTerms) {
       try {
-        const signupRef = await addDoc(signupCollection, formData);
+        const signupRef = await addDoc(collection(db, "Signup"), formData);
         dispatch(isSignedUp(signupRef.id));
-        console.log(`User created ${formData.name}`, signupRef.id);
+        console.log(`User created ${formData.name} with ID: ${signupRef.id}`);
 
         setTimeout(() => {
           navigate("/signin");

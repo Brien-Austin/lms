@@ -3,9 +3,36 @@ import { useSelector } from "react-redux";
 import { coursesData } from "./dummy.data";
 import { ShoppingBag, Heart, ChevronRight } from "lucide-react";
 import NavBar from "../components/NavBar";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 const Courses = () => {
   const currentCourseID = useSelector((state) => state.courseSelect.courseID);
+  const userID = useSelector((state) => state.authenticate.id);
+  console.log(userID);
+  const handleEnrollment = async () => {
+    const userDataCollection = collection(db, "UserData");
+
+    try {
+      const userDataDocRef = doc(userDataCollection, userID);
+
+      const userDataDoc = await getDoc(userDataDocRef);
+      const userData = userDataDoc.exists() ? userDataDoc.data() : {};
+
+      userData.enrolledCourses = userData.enrolledCourses || {};
+
+      userData.enrolledCourses[currentCourseID] = { isPayed: false };
+
+      console.log("Updated userData:", userData);
+
+      await setDoc(userDataDocRef, userData);
+
+      console.log("Enrollment added successfully!");
+    } catch (error) {
+      console.error("Error adding enrollment: ", error);
+    }
+  };
+
   const filteredData = coursesData.filter(
     (course) => course.id === currentCourseID
   );
@@ -18,7 +45,7 @@ const Courses = () => {
     <>
       <NavBar />
       {filteredData.map((data, index) => (
-        <div className="m-5 rounded">
+        <div key={index} className="m-5 rounded">
           <img
             className="rounded-lg"
             src={
@@ -72,7 +99,12 @@ const Courses = () => {
               </div>
             </div>
 
-            <button className="mx-5 text-white bg-black px-4 py-3 rounded">
+            <button
+              onClick={() => {
+                handleEnrollment();
+              }}
+              className="mx-5 text-white bg-black px-4 py-3 rounded"
+            >
               BUY NOW
             </button>
           </div>

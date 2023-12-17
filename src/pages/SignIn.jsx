@@ -20,13 +20,19 @@ const SignIn = () => {
       try {
         const signupCollection = collection(db, "Signup");
         const signupSnapshot = await getDocs(signupCollection);
-        const signupDataArray = signupSnapshot.docs.map((doc) => doc.data());
+
+        const signupDataArray = signupSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
         console.log(signupDataArray);
         setSignupData(signupDataArray);
       } catch (error) {
         console.error("Error fetching SignUp data:", error.message);
       }
     };
+
     const fetchAdminData = async () => {
       try {
         const adminCollection = collection(db, "AdminUser");
@@ -56,17 +62,17 @@ const SignIn = () => {
   };
 
   const handleSignIn = () => {
-    const isValidUser = signUpData.some(
+    const foundUser = signUpData.find(
       (user) =>
         user.email === formData.email && user.password === formData.password
     );
 
-    if (isValidUser) {
-      dispatch(isLoggedIn(signUpData.id));
+    if (foundUser) {
+      dispatch(isLoggedIn(foundUser.id));
       setTimeout(() => {
         navigate("/home");
       }, 3000);
-      console.log("Sign-in successful!");
+      console.log("Sign-in successful! User ID:", foundUser.id);
     } else {
       console.error("Invalid email or password");
     }
