@@ -8,7 +8,7 @@ const UI = () => {
     <>
       <NavBar />
       <div className="mx-8">
-        <h1 className="mt-8 font-semibold tracking-wider">
+        <h1 className="mt-8 text-xl font-semibold tracking-wider">
           Find College/School <br />
           courses at one place
         </h1>
