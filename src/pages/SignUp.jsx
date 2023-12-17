@@ -25,6 +25,9 @@ const SignUp = () => {
     try {
       signInWithPopup(auth, provider).then((result) => {
         dispatch(isAuthenticated(auth.currentUser.uid));
+        setTimeout(() => {
+          navigate("/home");
+        }, 3000);
         console.log("Logged in", auth.currentUser.uid);
       });
     } catch (error) {
