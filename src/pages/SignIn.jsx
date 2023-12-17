@@ -1,17 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import RegImage from "../assets/register.svg";
 import Back from "../assets/backicon.svg";
 import Google from "../assets/google.svg";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { addDoc, collection, getDocs, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [signUpData, setSignupData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const signupCollection = collection(db, "Signup");
+        const signupSnapshot = await getDocs(signupCollection);
+        const signupDataArray = signupSnapshot.docs.map((doc) => doc.data());
+        console.log(signupDataArray);
+        setSignupData(signupDataArray);
+      } catch (error) {
+        console.error("Error fetching SignUp data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSignIn = () => {
+    const isValidUser = signUpData.some(
+      (user) =>
+        user.email === formData.email && user.password === formData.password
+    );
+
+    if (isValidUser) {
+      setTimeout(() => {
+        navigate("/home");
+      }, 3000);
+      console.log("Sign-in successful!");
+    } else {
+      console.error("Invalid email or password");
+    }
+  };
+
   return (
     <>
       <div className="flex-1 flex-col h-full mt-6 px-8">
-        <div className="flex gap-2">
-          <img src={Back} alt="" />
-          <h1 className="text-md font-semibold">BACK</h1>
-        </div>
+        <Link to={"/signup"}>
+          {" "}
+          <div className="flex gap-2">
+            <img src={Back} alt="" />
+            <h1 className="text-md font-semibold">BACK</h1>
+          </div>
+        </Link>
         <div className="mt-4">
           <h1 className="text-2xl tracking-wide font-bold">Sign in to LMS</h1>
         </div>
@@ -22,11 +76,17 @@ const SignIn = () => {
           <form action="">
             <input
               type="text"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
               placeholder="Email Address"
             />
             <input
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
               placeholder="Password"
             />
@@ -35,12 +95,14 @@ const SignIn = () => {
       </div>
 
       <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 flex justify-center items-center mb-14 rounded-full bg-black text-white p-3">
-        <Link to="/home">Continue</Link>
+        <button onClick={handleSignIn}>Continue</button>
       </div>
       <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 ">
         <h1 className="mb-4 whitespace-nowrap text-sm text-slate-600">
           Dont have an account ?{" "}
-          <span className="text-black font-semibold">Signup</span>
+          <Link to={"/signup"}>
+            <span className="text-black font-semibold">Signup</span>
+          </Link>
         </h1>
       </div>
     </>

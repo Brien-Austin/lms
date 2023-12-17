@@ -28,13 +28,13 @@ const Register = () => {
             <img src={Union} alt="" />{" "}
             <div className="absolute bottom-[25%] left-8">
               <Link to={"/signup"}>
-                <h1 className="text-white text-sm cursor-pointer">REGISTER</h1>
+                <h1 className="text-white text-md cursor-pointer">REGISTER</h1>
               </Link>
             </div>
             <div className="absolute bottom-[25%] cursor-pointer right-12">
               <Link to={"/signin"}>
                 {" "}
-                <h1 className="text-white text-sm">LOGIN</h1>
+                <h1 className="text-white text-md">LOGIN</h1>
               </Link>
             </div>
           </div>
