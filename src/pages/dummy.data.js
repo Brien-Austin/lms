@@ -6,6 +6,11 @@ export const coursesData = [
     difficulty: "Beginner",
     rating: 4.5,
     imageSrc: "../assets/course.jpg",
+    category: "Computer Science",
+    numberOfReviews: 120,
+    description:
+      "A foundational course introducing key concepts in computer science.",
+    price: "₹499",
   },
   {
     id: 2,
@@ -14,6 +19,10 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.2,
     imageSrc: "../assets/course.jpg",
+    category: "Computer Science",
+    numberOfReviews: 90,
+    description: "Learn the fundamentals of data structures and algorithms.",
+    price: "₹599",
   },
   {
     id: 3,
@@ -22,6 +31,10 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.8,
     imageSrc: "../assets/course.jpg",
+    category: "Machine Learning",
+    numberOfReviews: 150,
+    description: "Explore the basics of machine learning and its applications.",
+    price: "₹549",
   },
   {
     id: 4,
@@ -30,6 +43,11 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.0,
     imageSrc: "../assets/course.jpg",
+    category: "Web Development",
+    numberOfReviews: 100,
+    description:
+      "A comprehensive bootcamp covering web development technologies.",
+    price: "₹499",
   },
   {
     id: 5,
@@ -38,6 +56,10 @@ export const coursesData = [
     difficulty: "Advanced",
     rating: 4.7,
     imageSrc: "../assets/course.jpg",
+    category: "Java Programming",
+    numberOfReviews: 80,
+    description: "Dive deep into advanced concepts of Java programming.",
+    price: "₹599",
   },
   {
     id: 6,
@@ -46,6 +68,10 @@ export const coursesData = [
     difficulty: "Beginner",
     rating: 4.1,
     imageSrc: "../assets/course.jpg",
+    category: "Digital Marketing",
+    numberOfReviews: 70,
+    description: "Learn effective strategies for digital marketing success.",
+    price: "₹449",
   },
   {
     id: 7,
@@ -54,6 +80,11 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.6,
     imageSrc: "../assets/course.jpg",
+    category: "Artificial Intelligence",
+    numberOfReviews: 130,
+    description:
+      "An introductory course to the fascinating world of artificial intelligence.",
+    price: "₹549",
   },
   {
     id: 8,
@@ -62,6 +93,11 @@ export const coursesData = [
     difficulty: "Beginner",
     rating: 4.3,
     imageSrc: "../assets/course.jpg",
+    category: "Graphic Design",
+    numberOfReviews: 90,
+    description:
+      "Master the fundamentals of graphic design with hands-on projects.",
+    price: "₹499",
   },
   {
     id: 9,
@@ -70,6 +106,11 @@ export const coursesData = [
     difficulty: "Advanced",
     rating: 4.9,
     imageSrc: "../assets/course.jpg",
+    category: "Blockchain",
+    numberOfReviews: 180,
+    description:
+      "Explore the revolutionary world of blockchain and cryptocurrencies.",
+    price: "₹599",
   },
   {
     id: 10,
@@ -78,6 +119,10 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.4,
     imageSrc: "../assets/course.jpg",
+    category: "Mobile App Development",
+    numberOfReviews: 120,
+    description: "Build cross-platform mobile apps with React Native.",
+    price: "₹549",
   },
   {
     id: 11,
@@ -86,6 +131,11 @@ export const coursesData = [
     difficulty: "Beginner",
     rating: 3.9,
     imageSrc: "../assets/course.jpg",
+    category: "Business Ethics",
+    numberOfReviews: 60,
+    description:
+      "Learn ethical principles and effective leadership in business.",
+    price: "₹449",
   },
   {
     id: 12,
@@ -94,6 +144,10 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.2,
     imageSrc: "../assets/course.jpg",
+    category: "Game Development",
+    numberOfReviews: 110,
+    description: "Create games with Unity and unleash your creativity.",
+    price: "₹499",
   },
   {
     id: 13,
@@ -102,6 +156,11 @@ export const coursesData = [
     difficulty: "Intermediate",
     rating: 4.6,
     imageSrc: "../assets/course.jpg",
+    category: "Data Science",
+    numberOfReviews: 140,
+    description:
+      "Harness the power of Python for data analysis and machine learning.",
+    price: "₹549",
   },
   {
     id: 14,
@@ -110,6 +169,11 @@ export const coursesData = [
     difficulty: "Advanced",
     rating: 4.8,
     imageSrc: "../assets/course.jpg",
+    category: "Network Security",
+    numberOfReviews: 160,
+    description:
+      "Understand the essentials of network security and cyber threats.",
+    price: "₹599",
   },
   {
     id: 15,
@@ -118,6 +182,11 @@ export const coursesData = [
     difficulty: "Beginner",
     rating: 3.8,
     imageSrc: "../assets/course.jpg",
+    category: "Creative Writing",
+    numberOfReviews: 45,
+    description:
+      "Unlock your creativity with this interactive writing workshop.",
+    price: "₹399",
   },
 ];
 
