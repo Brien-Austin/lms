@@ -61,7 +61,7 @@ const Courses = () => {
             <ChevronRight className="text-slate-700" />
           </div>
           <div className="border mt-4 border-slate-200 w-full"></div>
-          <div className="w-full   flex justify-between items-center h-20 bg-slate-200 rounded mb-24 mt-3">
+          <div className="w-full   flex justify-between items-center h-20 bg-slate-100 rounded mb-24 mt-3">
             <div className="flex-col ">
               <h1 className="mx-5 font-md text-slate-800">Listed Price</h1>{" "}
               <div className="mx-5 flex gap-3 items-center">
@@ -72,7 +72,7 @@ const Courses = () => {
               </div>
             </div>
 
-            <button className="mx-5 text-white bg-indigo-700 px-4 py-3 rounded">
+            <button className="mx-5 text-white bg-black px-4 py-3 rounded">
               BUY NOW
             </button>
           </div>
