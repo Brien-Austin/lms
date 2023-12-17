@@ -38,7 +38,7 @@ const SignUp = () => {
         const signupRef = await addDoc(signupCollection, formData);
         console.log("Document written with ID: ", signupRef.id);
         setTimeout(() => {
-          navigate("/home");
+          navigate("/signin");
         }, 3000);
       } catch (error) {
         console.log(error);
