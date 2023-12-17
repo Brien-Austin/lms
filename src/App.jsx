@@ -7,6 +7,8 @@ import UI from "./pages/UI";
 
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Admin from "./pages/Admin";
+import Courses from "./pages/Courses";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/home" element={<UI />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/course" element={<Courses />} />
       </Routes>
     </>
   );

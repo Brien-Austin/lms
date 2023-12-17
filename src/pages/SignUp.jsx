@@ -4,7 +4,10 @@ import { auth, db, provider } from "../firebase.config";
 import { signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
-import { isAuthenticated } from "../store/features/auth/authSlice";
+import {
+  isGoogleAuthenticated,
+  isSignedUp,
+} from "../store/features/auth/authSlice";
 import RegImage from "../assets/register.svg";
 import Back from "../assets/backicon.svg";
 import Google from "../assets/google.svg";
@@ -24,7 +27,7 @@ const SignUp = () => {
   const handleGoogleSignIn = async () => {
     try {
       signInWithPopup(auth, provider).then((result) => {
-        dispatch(isAuthenticated(auth.currentUser.uid));
+        dispatch(isGoogleAuthenticated(auth.currentUser.uid));
         setTimeout(() => {
           navigate("/home");
         }, 3000);
@@ -39,7 +42,9 @@ const SignUp = () => {
     if (formData.acceptTerms) {
       try {
         const signupRef = await addDoc(signupCollection, formData);
-        console.log("Document written with ID: ", signupRef.id);
+        dispatch(isSignedUp(signupRef.id));
+        console.log(`User created ${formData.name}`, signupRef.id);
+
         setTimeout(() => {
           navigate("/signin");
         }, 3000);

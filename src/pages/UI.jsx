@@ -2,8 +2,15 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import { coursesData, notesData } from "./dummy.data";
 import Image from "../assets/course.jpg";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { currentCourse } from "../store/features/course/courseSlice";
 
 const UI = () => {
+  const dispatch = useDispatch();
+  const handleCourseSelection = (id) => {
+    dispatch(currentCourse(id));
+  };
   return (
     <>
       <NavBar />
@@ -50,17 +57,26 @@ const UI = () => {
               <div className="mt-4 mx-3">
                 <h1 className="text-sm font-bold truncate">{data.name}</h1>
               </div>
-              <div className="mt-2 px-3">
+              <div className="mt-2 px-3 flex justify-between items-center">
                 <h1 className=" text-sm text-indigo-600">
                   {data.percentCompleted}% completed
                 </h1>
+                <Link to={`/course`}>
+                  {" "}
+                  <button
+                    onClick={() => handleCourseSelection(data.id)}
+                    className="text-sm bg-black text-white px-3 py-1 rounded-sm"
+                  >
+                    View
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-4">
-          <h1 className="font-bold text-xl">Downloaded Notes</h1>
+          <h1 className="font-bold text-xl">Download Notes</h1>
           <div className="flex justify-between items-center">
             <h1 className=" text-sm text-slate-400 mt-2 truncat mr-10">
               Lorem ipsum dolor sit amet consectetur adipisicing
