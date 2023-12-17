@@ -30,7 +30,7 @@ const SignUp = () => {
         dispatch(isGoogleAuthenticated(auth.currentUser.uid));
         setTimeout(() => {
           navigate("/home");
-        }, 3000);
+        }, 1000);
         console.log("Logged in", auth.currentUser.uid);
       });
     } catch (error) {

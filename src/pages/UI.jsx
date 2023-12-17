@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { coursesData, notesData } from "./dummy.data";
 import Image from "../assets/course.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { currentCourse } from "../store/features/course/courseSlice";
 
-const UI = () => {
+const UI = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
+  console.log(isLoggedIn);
   const dispatch = useDispatch();
   const handleCourseSelection = (id) => {
     dispatch(currentCourse(id));
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signup");
+    }
+  }, []);
   return (
     <>
       <NavBar />
