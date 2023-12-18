@@ -116,7 +116,7 @@ const SignIn = () => {
             </div>
             <div className="mt-8 mx-10  w-3/5 h-6 bg-slate-200 animate-pulse rounded-lg"></div>
           </div>
-          <div className="mt-8  w-full h-20 bg-slate-200 animate-pulse rounded-lg"></div>
+          <div className="mt-8 fixed-bottom-0 left-0 w-full h-20 bg-slate-200 animate-pulse rounded-lg"></div>
         </>
       )}
       {!loading && (
