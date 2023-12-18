@@ -4,7 +4,7 @@ import { Home, StickyNote, BookOpen, CircleUserRound } from "lucide-react";
 
 const NavBar = () => {
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-indigo-700 text-white">
+    <div className="fixed bottom-0 left-0 w-full bg-indigo-700 text-white ">
       <div className="flex justify-around p-4">
         <Link to="/home" className="flex flex-col gap-1  items-center">
           <Home />
