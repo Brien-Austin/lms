@@ -13,6 +13,7 @@ const Admin = () => {
         id: doc.id,
         ...doc.data(),
       }));
+      console.log(updatedUserData);
       setAdminData(updatedUserData);
     });
 
