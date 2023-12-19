@@ -3,10 +3,19 @@ import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
 import NavBar from "../components/NavBar";
 import { db } from "../firebase.config";
 import { coursesData } from "./dummy.data";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
+  const navigate = useNavigate();
+  const isAdmin = useSelector((state) => state.admin.isLoggedIn);
+  console.log(isAdmin);
   const [userData, setAdminData] = useState([]);
-
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/signin");
+    }
+  }, []);
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "UserData"), (snapshot) => {
       const updatedUserData = snapshot.docs.map((doc) => ({
@@ -42,8 +51,8 @@ const Admin = () => {
       <div className="flex flex-col gap-10 mx-10 mt-5 mb-24">
         {userData.map((data) => (
           <div className="border p-5 rounded-lg shadow-md" key={data.id}>
-            <h2 className="whitespace-nowrap truncate bg-slate-100 px-2 py-1 rounded">
-              User ID: {data.id}
+            <h2 className="whitespace-nowrap w-fit truncate bg-slate-100 px-2 py-1 rounded">
+              <span className="text-xl font-semibold">{data.name}</span>
             </h2>
 
             <ul>
@@ -55,7 +64,7 @@ const Admin = () => {
 
                   if (!course.isPayed) {
                     return (
-                      <li className="mt-10" key={courseId}>
+                      <li className="mt-4" key={courseId}>
                         <h1>
                           {" "}
                           Course Name: {foundCourse ? foundCourse.name : "N/A"},

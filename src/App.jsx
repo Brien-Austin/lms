@@ -5,7 +5,6 @@ import OnBoard from "./pages/OnBoard";
 import Register from "./pages/Register";
 import UI from "./pages/UI";
 
-import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Admin from "./pages/Admin";
 import Courses from "./pages/Courses";
@@ -13,6 +12,19 @@ import { useSelector } from "react-redux";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import Course from "./pages/Course";
+import EnrolledCourse from "./pages/enrolledCourse";
+import SignUp from "./pages/SIgnUp";
+
+const Error = () => {
+  return (
+    <>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <h1 className="text-xl font-semibold">Error ! Page not found</h1>
+        <h1 className="text-sm text-slate-700">or we might me updating</h1>
+      </div>
+    </>
+  );
+};
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.authenticate.isLoggedIn);
@@ -20,6 +32,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="*" element={<Error />} />
         <Route path="/" element={<Home />} />
         <Route path="/onboard" element={<OnBoard />} />
         <Route path="/register" element={<Register />} />
@@ -31,6 +44,7 @@ const App = () => {
         <Route path="/courses" element={<Course />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/enrolledcourse" element={<EnrolledCourse />} />
       </Routes>
     </>
   );

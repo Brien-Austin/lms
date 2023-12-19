@@ -2,22 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
   name: "authSlice",
-  initialState: { id: "", isLoggedIn: false },
+  initialState: { id: "", name: "", isLoggedIn: false },
   reducers: {
     isGoogleAuthenticated: (state, action) => {
-      state.id = action.payload;
+      state.id = action.payload.id;
+      state.name = action.payload.name;
       state.isLoggedIn = true;
     },
-    isSignedUp: (state, action) => {
-      state.id = action.payload;
-      state.isLoggedIn = true;
-    },
+
     isLoggedIn: (state, action) => {
-      state.id = action.payload;
-      state.isLoggedIn = true;
-    },
-    isAdminLoggedIn: (state, action) => {
-      state.id = action.payload;
+      state.id = action.payload.id;
+      state.name = action.payload.name;
       state.isLoggedIn = true;
     },
   },

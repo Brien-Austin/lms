@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addDoc, collection, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { isAdminLoggedIn, isLoggedIn } from "../store/features/auth/authSlice";
+import { isLoggedIn } from "../store/features/auth/authSlice";
+import { isAdminLoggedIn } from "../store/features/auth/adminSlice";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const SignIn = () => {
     );
 
     if (foundUser) {
-      dispatch(isLoggedIn(foundUser.id));
+      dispatch(isLoggedIn({ id: foundUser.id, name: foundUser.name }));
       setLoading(!loading);
       setTimeout(() => {
         navigate("/home");
@@ -81,16 +82,19 @@ const SignIn = () => {
   };
 
   const handleAdminSignIn = () => {
-    const isValidAdmin = adminData.some(
+    const isValidAdmin = adminData.find(
       (user) =>
         user.email === formData.email && user.password === formData.password
     );
 
     if (isValidAdmin) {
-      dispatch(isAdminLoggedIn(adminData.id));
+      dispatch(
+        isAdminLoggedIn({ id: isValidAdmin.id, name: isValidAdmin.name })
+      );
       setTimeout(() => {
         navigate("/admin");
       }, 1000);
+      console.log(isValidAdmin.name);
       console.log("Admin Sign-in successful!");
     } else {
       console.error("Invalid email or password");
@@ -100,7 +104,7 @@ const SignIn = () => {
   return (
     <>
       {loading && (
-        <>
+        <div>
           <div className="mx-8">
             <div className="mt-14 w-4/5 h-6 bg-slate-200 animate-pulse rounded-lg"></div>
             <div className="mt-1   w-2/5 h-6 bg-slate-200 animate-pulse rounded-lg"></div>
@@ -116,7 +120,7 @@ const SignIn = () => {
             </div>
           </div>
           <div className="mt-8 fixed bottom-0 left-0 w-full h-20 bg-slate-200 animate-pulse rounded-lg"></div>
-        </>
+        </div>
       )}
       {!loading && (
         <div>

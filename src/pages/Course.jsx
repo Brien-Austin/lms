@@ -15,7 +15,7 @@ const Course = () => {
       <NavBar />
       <div className="m-8">
         <h1 className="text-2xl font-semibold"> Courses to UpSkill</h1>
-        <div className="flex flex-col mt-10 gap-10">
+        <div className="flex flex-col mt-10 mb-24 gap-10">
           {coursesData.map((data, index) => (
             <div
               style={{ borderRadius: "10px 10px 10px 10px" }}
