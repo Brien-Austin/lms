@@ -12,8 +12,9 @@ import { useSelector } from "react-redux";
 import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import Course from "./pages/Course";
-import EnrolledCourse from "./pages/enrolledCourse";
+
 import SignUp from "./pages/SIgnUp";
+import Enrolled from "./pages/Enrolled";
 
 const Error = () => {
   return (
@@ -44,7 +45,7 @@ const App = () => {
         <Route path="/courses" element={<Course />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/enrolledcourse" element={<EnrolledCourse />} />
+        <Route path="/enrolledcourse" element={<Enrolled />} />
       </Routes>
     </>
   );
