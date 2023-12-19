@@ -13,7 +13,7 @@ import Notes from "./pages/Notes";
 import Profile from "./pages/Profile";
 import Course from "./pages/Course";
 
-import SignUp from "./pages/SIgnUp";
+import SignUp from "./pages/SignUp";
 import Enrolled from "./pages/Enrolled";
 
 const Error = () => {
