@@ -3,7 +3,8 @@ import NavBar from "../components/NavBar";
 import { useSelector } from "react-redux";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { LogOut } from "lucide-react";
 
 const Profile = () => {
   const userName = useSelector((state) => state.authenticate.name);
@@ -11,6 +12,10 @@ const Profile = () => {
   const [coursesData, setCoursesData] = useState([]);
   const userCourses = coursesData.filter((courses) => courses.id === userID);
   console.log(userCourses);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate("/signin");
+  };
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "UserData"), (snapshot) => {
@@ -27,9 +32,17 @@ const Profile = () => {
   return (
     <>
       <div className="m-10">
-        <h1 className="text-xl">
-          Hey <span className="font-semibold">{userName}</span>
-        </h1>
+        <div className="flex flex-col justify-between ietms-center">
+          <h1 className="text-xl">
+            Hey <span className="font-semibold">{userName}</span>
+          </h1>
+          <button
+            onClick={() => handleLogout()}
+            className="bg-slate-50 w-fit mt-4 px-3 py-1  flex items-center gap-1 rounded font-semibold"
+          >
+            <LogOut /> Logout
+          </button>
+        </div>
       </div>
       <div className="">
         <h1 className="m-10 text-xl">Enrolled Courses</h1>
@@ -39,19 +52,26 @@ const Profile = () => {
               className="mt-10  mx-10 flex flex-col gap-10 mb-24"
               key={index}
             >
-              {Object.entries(data.enrolledCourses).map(([key, course]) => (
-                <div className="border p-5 rounded-lg border-slate-400">
-                  <h1 key={key}>{course.courseName}</h1>
-                  <div className="flex justify-center items-center">
-                    <Link to="/enrolledcourse">
-                      {" "}
-                      <button className=" mt-5 px-3 bg-gradient-to-r from-indigo-700 to-indigo-800 rounded-md text-white py-3 w-full">
-                        Continue Learning
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              ))}
+              {data &&
+                data.enrolledCourses &&
+                Object.entries(data.enrolledCourses).map(
+                  ([key, course]) =>
+                    course.isPayed && (
+                      <div
+                        key={key}
+                        className="border p-5 rounded-lg border-slate-400"
+                      >
+                        <h1>{course.courseName}</h1>
+                        <Link to="/enrolledcourse">
+                          <div className="w-full">
+                            <button className="mt-5 px-3 bg-gradient-to-r from-indigo-700 to-indigo-800 rounded-md text-white py-3 w-full">
+                              Continue Learning
+                            </button>
+                          </div>
+                        </Link>
+                      </div>
+                    )
+                )}
             </div>
           ))}
         </div>
