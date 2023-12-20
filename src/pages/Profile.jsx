@@ -11,7 +11,7 @@ const Profile = () => {
   const userID = useSelector((state) => state.authenticate.id);
   const [coursesData, setCoursesData] = useState([]);
   const userCourses = coursesData.filter((courses) => courses.id === userID);
-  console.log(userCourses);
+  console.log(coursesData);
   const navigate = useNavigate();
   const handleLogout = () => {
     navigate("/signin");
@@ -47,7 +47,7 @@ const Profile = () => {
       <div className="">
         <h1 className="m-10 text-xl">Enrolled Courses</h1>
         <div>
-          {userCourses.map((data, index) => (
+          {coursesData.map((data, index) => (
             <div
               className="mt-10  mx-10 flex flex-col gap-10 mb-24"
               key={index}
