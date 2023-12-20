@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { notesData } from "./dummy.data";
 import { Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const Notes = () => {
+const Notes = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
+  console.log(isLoggedIn);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
+  }, []);
   return (
     <>
       <NavBar />

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Courses from "../assets/courses.svg";
 import Next from "../assets/next.svg";
 import Index from "../assets/num.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const OnBoard = () => {
   return (

@@ -12,7 +12,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const [courseData, setCoursesData] = useState([]);

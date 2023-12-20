@@ -6,7 +6,7 @@ import { db } from "../firebase.config";
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 
-const Profile = () => {
+const Profile = ({ isLoggedIn }) => {
   const userName = useSelector((state) => state.authenticate.name);
   const userID = useSelector((state) => state.authenticate.id);
   const [coursesData, setCoursesData] = useState([]);
@@ -18,6 +18,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
     const unsubscribe = onSnapshot(collection(db, "UserData"), (snapshot) => {
       const Courses = snapshot.docs.map((doc) => ({
         id: doc.id,

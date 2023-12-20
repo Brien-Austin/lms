@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { coursesData } from "./dummy.data";
 import { useDispatch } from "react-redux";
 import { currentCourse } from "../store/features/course/courseSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { isLoggedIn } from "../store/features/auth/authSlice";
 
-const Course = () => {
+const Course = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
   const handleCurrentCourse = (id) => {
     dispatch(currentCourse(id));
   };
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/signin");
+    }
+  }, []);
   return (
     <>
       <NavBar />

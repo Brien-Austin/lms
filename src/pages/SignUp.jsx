@@ -23,6 +23,14 @@ const SignUp = () => {
     acceptTerms: false,
   });
 
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    dateOfBirth: "",
+    password: "",
+    acceptTerms: "",
+  });
+
   const handleGoogleSignIn = async () => {
     try {
       signInWithPopup(auth, provider).then((result) => {
@@ -43,8 +51,54 @@ const SignUp = () => {
     }
   };
 
+  const validateForm = () => {
+    let valid = true;
+    const updatedErrors = {
+      name: "",
+      email: "",
+      dateOfBirth: "",
+      password: "",
+      acceptTerms: "",
+    };
+
+    // Validation for Name
+    if (!formData.name.trim()) {
+      updatedErrors.name = "Name is required";
+      valid = false;
+    }
+
+    // Validation for Email Format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      updatedErrors.email = "Invalid email format";
+      valid = false;
+    }
+
+    // Validation for Date of Birth (below 2006)
+    const birthYear = new Date(formData.dateOfBirth).getFullYear();
+    if (isNaN(birthYear) || birthYear >= 2006) {
+      updatedErrors.dateOfBirth = "Date of Birth must be below 2006";
+      valid = false;
+    }
+
+    // Validation for Password
+    if (formData.password.length < 6) {
+      updatedErrors.password = "Password must be at least 6 characters";
+      valid = false;
+    }
+
+    // Validation for Accept Terms
+    if (!formData.acceptTerms) {
+      updatedErrors.acceptTerms = "Please accept Terms and Conditions";
+      valid = false;
+    }
+
+    setErrors(updatedErrors);
+    return valid;
+  };
+
   const handleSignUp = async () => {
-    if (formData.acceptTerms) {
+    if (validateForm()) {
       try {
         const signupRef = await addDoc(collection(db, "Signup"), formData);
         dispatch(isSignuped(signupRef.id));
@@ -57,10 +111,8 @@ const SignUp = () => {
       } catch (error) {
         console.log(error);
       }
-
-      console.log("Form Data:", formData);
     } else {
-      console.error("Please accept Terms and Conditions");
+      console.error("error");
     }
   };
 
@@ -95,7 +147,6 @@ const SignUp = () => {
       )}
       {!isloading && (
         <>
-          <div></div>
           <div className="flex-1 flex-col h-full mt-6 px-8">
             <Link to="/register">
               <div className="flex items-center gap-2">
@@ -108,59 +159,87 @@ const SignUp = () => {
                 Complete Registration
               </h1>
             </div>
-            <div className="mt-4">
+            <div className="mt-3">
               <h1 className="text-slate-500">Personal Information</h1>
-            </div>
-            <div className="mt-2">
+            </div>{" "}
+          </div>
+          <div className="flex-1 flex-col h-full mt-6 px-8">
+            {/* ... (existing code) */}
+
+            <div className="mt-">
               <form action="">
                 <input
                   type="text"
                   name="name"
-                  className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
+                  className={`border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-1 px-4 outline-none ${
+                    errors.name ? "border-red-500" : ""
+                  }`}
                   placeholder="Name"
                   value={formData.name}
                   onChange={handleChange}
                 />
+                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+
                 <input
                   type="text"
                   name="email"
-                  className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
+                  className={`border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none ${
+                    errors.email ? "border-red-500" : ""
+                  }`}
                   placeholder="Email Address"
                   value={formData.email}
                   onChange={handleChange}
                 />
+                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+
                 <input
                   type="date"
                   name="dateOfBirth"
-                  className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
+                  className={`border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none ${
+                    errors.dateOfBirth ? "border-red-500" : ""
+                  }`}
                   placeholder="Select Date of Birth"
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                 />
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.dateOfBirth}
+                </p>
+
                 <input
                   type="password"
                   name="password"
                   required
-                  className="border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none"
+                  className={`border w-full border-late-200 bg-slate-50 h-10 rounded-lg mt-4 px-4 outline-none ${
+                    errors.password ? "border-red-500" : ""
+                  }`}
                   placeholder="Set Password"
                   value={formData.password}
                   onChange={handleChange}
                 />
+                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
               </form>
-              <div className="border w-full border-gray-300 mt-8"></div>
-              <div className="mt-6 flex gap-2 items-center">
+              <div className="border w-full border-gray-300 mt-4"></div>
+              <div className="mt-0 flex gap-2 items-center">
                 <input
                   type="checkbox"
                   name="acceptTerms"
-                  className="h-8 w-8"
+                  className={`border border-late-200 bg-slate-50 h-4 w-4 rounded-lg mt-2 px-4 outline-none ${
+                    errors.password ? "border-red-500 mb-8 " : ""
+                  }`}
                   required
                   checked={formData.acceptTerms}
                   onChange={handleChange}
                 />
-                <h1 className="text-sm text-slate-400">
-                  By continuing, you accept our Terms and Conditions and Privacy
-                  Policy
-                </h1>
+                <div className="flex flex-col items-center gap-1">
+                  <h1 className="text-[10px] mt-4  text-slate-400">
+                    By continuing, you accept our Terms and Conditions and
+                    Privacy Policy
+                  </h1>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.acceptTerms}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

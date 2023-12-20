@@ -34,18 +34,21 @@ const App = () => {
     <>
       <Routes>
         <Route path="*" element={<Error />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/onboard" element={<OnBoard />} />
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route path="/onboard" element={<OnBoard isLoggedIn={isLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<UI isLoggedIn={isLoggedIn} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/course" element={<Courses />} />
-        <Route path="/courses" element={<Course />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/enrolledcourse" element={<Enrolled />} />
+        <Route path="/admin" element={<Admin isLoggedIn={isLoggedIn} />} />
+        <Route path="/course" element={<Courses isLoggedIn={isLoggedIn} />} />
+        <Route path="/courses" element={<Course isLoggedIn={isLoggedIn} />} />
+        <Route path="/notes" element={<Notes isLoggedIn={isLoggedIn} />} />
+        <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/enrolledcourse"
+          element={<Enrolled isLoggedIn={isLoggedIn} />}
+        />
       </Routes>
     </>
   );

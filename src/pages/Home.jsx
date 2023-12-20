@@ -5,7 +5,6 @@ import Index from "../assets/num.svg";
 import { Link } from "react-router-dom";
 
 const Home = ({}) => {
-  console.lo;
   return (
     <>
       <div className="flex-1 flex-col h-full px-8">
