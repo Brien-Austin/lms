@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db, provider } from "../firebase.config";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { isGoogleAuthenticated } from "../store/features/auth/authSlice";
@@ -97,6 +97,21 @@ const SignUp = () => {
     return valid;
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in.
+        console.log("User is signed in:", user.uid);
+        // You can redirect the user or perform other actions here.
+      } else {
+        // User is signed out.
+        console.log("User is signed out");
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts.
+    return () => unsubscribe();
+  }, []);
   const handleSignUp = async () => {
     if (validateForm()) {
       try {

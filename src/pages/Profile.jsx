@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
+import { isLoggedOut } from "../store/features/auth/logoutSlice";
 
 const Profile = ({ isLoggedIn }) => {
+  const dispatch = useDispatch();
   const userName = useSelector((state) => state.authenticate.name);
   const userID = useSelector((state) => state.authenticate.id);
   const [coursesData, setCoursesData] = useState([]);
@@ -14,6 +16,7 @@ const Profile = ({ isLoggedIn }) => {
   console.log(coursesData);
   const navigate = useNavigate();
   const handleLogout = () => {
+    dispatch(isLoggedOut());
     navigate("/signin");
   };
 

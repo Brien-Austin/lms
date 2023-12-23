@@ -7,9 +7,10 @@ import Google from "../assets/google.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addDoc, collection, getDocs, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase.config";
+import { auth, db } from "../firebase.config";
 import { isLoggedIn } from "../store/features/auth/authSlice";
 import { isAdminLoggedIn } from "../store/features/auth/adminSlice";
+import { onAuthStateChanged } from "firebase/auth";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -81,7 +82,23 @@ const SignIn = () => {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in.
+        console.log("User is signed in:", user.displayName);
+        // You can redirect the user or perform other actions here.
+      } else {
+        // User is signed out.
+        console.log("User is signed out");
+      }
+    });
+
+    // Cleanup the subscription when the component unmounts.
+    return () => unsubscribe();
+  }, []);
   const handleAdminSignIn = () => {
+    setLoading(true);
     const isValidAdmin = adminData.find(
       (user) =>
         user.email === formData.email && user.password === formData.password
